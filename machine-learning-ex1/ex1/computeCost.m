@@ -13,9 +13,14 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+% hypothesis : h(x) = theta0 + theta1*x1
+h = X * theta;
 
+% error : e = h(x) - y
+e = (h - y);
 
-
+% cost: j(theta) = 1/2m * sum((h(x)-y)^2) -OR- 1/2m * sum(sqr(e))
+J = (1/(2*m)) * sum(e.^2);
 
 % =========================================================================
 

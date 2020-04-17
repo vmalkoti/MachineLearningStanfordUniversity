@@ -17,9 +17,9 @@ figure; % open a new figure window
 %       markers larger by using plot(..., 'rx', 'MarkerSize', 10);
 
 % pass x and y series, set format option  to red crosses, and marker size 10
-plot(x, y, 'rx', 'MarkerSize', 10) 
-xlabel("Population")
-ylabel("Revenue")
+plot(x, y, 'rx', 'MarkerSize', 10);
+xlabel("Population");
+ylabel("Revenue");
 
 
 
