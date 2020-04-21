@@ -12,12 +12,17 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+positive = find(y);   % find non-zeros
+negative = find(1 .- y);  % find zeros
 
+X_pos_score1 = X(positive, 1);
+X_pos_score2 = X(positive, 2);
 
+X_neg_score1 = X(negative, 1);
+X_neg_score2 = X(negative, 2);
 
-
-
-
+plot(X_pos_score1, X_pos_score2, 'k+');
+plot(X_neg_score1, X_neg_score2, 'ko');
 
 
 % =========================================================================
