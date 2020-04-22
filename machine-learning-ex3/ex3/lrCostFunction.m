@@ -36,12 +36,17 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+h = sigmoid(X * theta);
 
+J = (1/m) * ( ((-y)' * log(h)) - ((1 - y)' * log(1 - h)) );
 
+theta(1) = 0 ;  % we can change it directly as h is already calculated
 
+J += lambda/(2*m) * (theta' * theta);  % add regularization part
 
+grad = (1/m) * (X' * (h - y));
 
-
+grad += (lambda/m) * theta;  % add regularization part
 
 
 

@@ -49,13 +49,18 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
+  for i = 1:num_labels
+    theta_vector_init = zeros(n+1 , 1);  % (n+1)x1 column vector for initial theta
 
+    options = optimset('GradObj', 'on', 'MaxIter', 50);  % options set
 
+    f = @(arg)(lrCostFunction(arg, X, (y==i), lambda)); % anonymous function
 
+    theta_vector_ret = fmincg(f, theta_vector_init, options); % get optimum theta vector
+    
+    all_theta(i, :) = theta_vector_ret(:);  % assign to current label row
 
-
-
-
+  end
 
 
 
