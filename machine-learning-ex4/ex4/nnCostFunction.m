@@ -62,23 +62,43 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+#printf("hidden_layer_size=%d, input_layer_size=%d\n", hidden_layer_size, input_layer_size)
+printf("Theta1 size = %d %d\n", size(Theta1))
+printf("Theta2 size = %d %d\n", size(Theta2))
 
+# convert y values to coded vectors
+y_matrix = eye(num_labels)(y, :);
 
+# Add a column of ones to X
+a1 = [ones(m, 1) X];
+#printf("a1 size = %d %d\n", size(a1));
 
+z2 =  a1 * Theta1';
+#printf("z2 size = %d %d\n", size(z2));
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+#printf("a2 size = %d %d\n", size(a2));
 
+z3 = a2 * Theta2';
+#printf("z3 size = %d %d\n", size(z3));
+a3 = sigmoid(z3);
+#printf("a3 size = %d %d\n", size(a3));
 
+# Hypothesis here is the final matrix
+h = a3;
 
+# Non-regularized cost
+# use double summation to sum over columns and rows
+# to produce a single cost value
+J = sum(sum((((-y_matrix) .* log(h)) - ((1 .-y_matrix) .* log(1 .- h))), 2), 1);
+J *= (1/m);
 
+# For regularization component, do no use bias unit in thetas
+T1 = Theta1(:, 2:end);
+T2 = Theta2(:, 2:end);
 
-
-
-
-
-
-
-
-
-
+# Add regularization part
+J += (lambda/(2 * m)) * (sum(sum((T1 .^ 2), 2), 1) + sum(sum((T2 .^ 2), 2), 1));
+ 
 
 % -------------------------------------------------------------
 
