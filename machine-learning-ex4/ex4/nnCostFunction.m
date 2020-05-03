@@ -67,29 +67,29 @@ printf("Theta1 size = %d %d\n", size(Theta1))
 printf("Theta2 size = %d %d\n", size(Theta2))
 
 # convert y values to coded vectors
-y_matrix = eye(num_labels)(y, :);
+Y = eye(num_labels)(y, :);  # uppercase Y because it is a matrix
 
 # Add a column of ones to X
-a1 = [ones(m, 1) X];
+A1 = [ones(m, 1) X];
 #printf("a1 size = %d %d\n", size(a1));
 
-z2 =  a1 * Theta1';
+Z2 =  A1 * Theta1';
 #printf("z2 size = %d %d\n", size(z2));
-a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+A2 = [ones(size(Z2, 1), 1) sigmoid(Z2)];
 #printf("a2 size = %d %d\n", size(a2));
 
-z3 = a2 * Theta2';
+Z3 = A2 * Theta2';
 #printf("z3 size = %d %d\n", size(z3));
-a3 = sigmoid(z3);
+A3 = sigmoid(Z3);
 #printf("a3 size = %d %d\n", size(a3));
 
 # Hypothesis here is the final matrix
-h = a3;
+h = A3;
 
 # Non-regularized cost
 # use double summation to sum over columns and rows
 # to produce a single cost value
-J = sum(sum((((-y_matrix) .* log(h)) - ((1 .-y_matrix) .* log(1 .- h))), 2), 1);
+J = sum(sum((((-Y) .* log(h)) - ((1 .-Y) .* log(1 .- h))), 2), 1);
 J *= (1/m);
 
 # For regularization component, do no use bias unit in thetas
@@ -101,6 +101,33 @@ J += (lambda/(2 * m)) * (sum(sum((T1 .^ 2), 2), 1) + sum(sum((T2 .^ 2), 2), 1));
  
 
 % -------------------------------------------------------------
+
+# Backpropagation
+
+# Error term for third (output) layer
+D3 = A3 .- Y;
+#printf("D3 size = %d %d\n", size(D3));
+
+# Error term for second (hidden) layer
+D2 = (D3 * T2) .* sigmoidGradient(Z2);
+#printf("D2 size = %d %d\n", size(D2));
+
+# Gradient for layer 1
+Delta1 = D2' * A1;
+#printf("Delta1 size = %d %d\n", size(Delta1));
+
+Delta2 = D3' * A2;
+#printf("Delta2 size = %d %d\n", size(Delta2));
+
+# Unregularized gradient
+Theta1_grad = (1/m) * Delta1;
+Theta2_grad = (1/m) * Delta2;
+
+
+# Regularized gradient
+
+
+
 
 % =========================================================================
 
