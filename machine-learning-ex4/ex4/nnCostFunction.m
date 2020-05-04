@@ -63,8 +63,8 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 #printf("hidden_layer_size=%d, input_layer_size=%d\n", hidden_layer_size, input_layer_size)
-printf("Theta1 size = %d %d\n", size(Theta1))
-printf("Theta2 size = %d %d\n", size(Theta2))
+#printf("Theta1 size = %d %d\n", size(Theta1));
+#printf("Theta2 size = %d %d\n", size(Theta2));
 
 # convert y values to coded vectors
 Y = eye(num_labels)(y, :);  # uppercase Y because it is a matrix
@@ -124,10 +124,13 @@ Theta1_grad = (1/m) * Delta1;
 Theta2_grad = (1/m) * Delta2;
 
 
+# set first columns to 0
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+
 # Regularized gradient
-
-
-
+Theta1_grad += (lambda/m) * Theta1;
+Theta2_grad += (lambda/m) * Theta2;
 
 % =========================================================================
 
