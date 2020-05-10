@@ -20,14 +20,25 @@ grad = zeros(size(theta));
 %
 
 
+#printf('X dimensions %d %d\n', size(X));
+#printf('theta dimensions %d %d\n', size(theta))
+h = X * theta;
+#printf('h dimensions %d %d\n', size(h));
+err = h - y;
 
+# unregularized cost
+J = (1/(2*m)) * sum(err .^ 2);
 
+# unregularized gradient
+grad = (1/m) * (X' * err);
 
+theta(1) = 0;
 
+# regularized cost
+J += (lambda/(2 * m)) * sum(theta .^ 2);
 
-
-
-
+# regularized gradient
+grad += (lambda/m) * theta;
 
 
 % =========================================================================

@@ -15,7 +15,8 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
-
+# https://octave.sourceforge.io/octave/function/bsxfun.html
+X_poly = bsxfun(@power, X, [1:p])
 
 
 
