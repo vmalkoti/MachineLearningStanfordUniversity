@@ -21,10 +21,23 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+# number of examples
+m = size(X, 1);
 
+# matrix to contain distances to each centroid
+D = zeros(m, K);
 
+for i=1:K
+  # compute differences between each example and current centroid
+  d = bsxfun(@minus, X, centroids(i, :));
+  # sum squared difference values along each row to calculate distance
+  D(:, i) = sum(d .^ 2, 2);
+endfor
 
+# get minimum in each row
+[m, i] = min(D, [], 2);
 
+idx = i;
 
 
 % =============================================================
