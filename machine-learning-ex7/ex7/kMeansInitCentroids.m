@@ -13,8 +13,10 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
-
-
+# reorder examples
+randidx = randperm(size(X, 1));
+# take k examples
+centroids = X(randidx(1:K), :);
 
 
 
