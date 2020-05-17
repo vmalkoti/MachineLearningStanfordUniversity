@@ -20,9 +20,11 @@ S = zeros(n);
 %       number of examples).
 %
 
+# covariance matrix
+Sigma = (1/m) * X' * X;
 
-
-
+# singlular value decomposition
+[U, S, V] = svd(Sigma);
 
 
 
