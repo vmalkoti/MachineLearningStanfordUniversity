@@ -41,19 +41,33 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+# predicted ratings
+H = X * Theta';
+
+# Error
+E = H - Y;
+
+# Error factor
+EF = E .* R;
+
+# Cost - unregularized
+J = (1/2) * sum(sum(EF .^ 2));
+
+# X gradient - unregularized
+X_grad = EF * Theta;
+
+# Theta gradient - unregularized
+Theta_grad = EF' * X;
 
 
+# Cost - regularized
+J += (lambda/2) * sum(sum(Theta .^2)) + (lambda/2) * sum(sum(X .^2));
 
+# X gradient - regularized
+X_grad += lambda * X;
 
-
-
-
-
-
-
-
-
-
+# Theta gradient - regularized
+Theta_grad += lambda * Theta;
 
 % =============================================================
 
